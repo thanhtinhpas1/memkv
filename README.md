@@ -18,15 +18,15 @@ This is a simple implementation of a Redis-like key-value store in Go. It provid
 
 1. Clone the repository
 2. Run `go mod tidy` to install dependencies
-3. Run `go run main.go` to start the server
+3. Run `go run cmd/main.go` to start the server
 4. Connect using any Redis client (default port: 6379)
 
 ## Project Structure
 
-- `main.go`: Main server implementation
-- `server/`: Server-related code
-- `storage/`: Storage engine implementation
-- `protocol/`: RESP protocol implementation
+- `cmd/`: Server-related code
+- `internal/server`: Main server implementation
+- `internal/core`: Storage engine implementation
+- `internal/processor`: event queue handling
 
 ## License
 
