@@ -7,6 +7,18 @@ import (
 	"syscall"
 )
 
+// EpollProcessor is a structure that implements the Multiplexer interface
+// using the epoll mechanism for I/O multiplexing on Linux systems.
+//
+// With Epoll, Linux register file descriptors once using epoll_ctl, and the kernel internally tracks them.
+// When handling events, the kernel notifies the user space about the file descriptors that are ready for I/O.
+// Because kernel already tracking them so kernel no need to scan entirely for file descriptors.
+// This is more efficient than select or poll, especially for a large number of file descriptors.
+//
+// Internally, kernel using red black tree to store file descriptors and a readly list (linked list) to store ready ones.
+// Lookup and updates are O(log n), and notifying events is often O(1).
+//
+// Check this source code: https://github.com/torvalds/linux/blob/master/fs/eventpoll.c
 type EpollProcessor struct {
 	fd            int
 	epollEvents   []syscall.EpollEvent
